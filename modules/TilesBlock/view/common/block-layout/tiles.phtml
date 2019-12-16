@@ -1,0 +1,52 @@
+<?php 
+$alignmentClass = $block->dataValue('alignment', 'left');
+$thumbnailType = $block->dataValue('thumbnail_type', 'square');
+$text =  $block->dataValue('text','');
+$span =  $block->dataValue('span',4);
+$last =  $block->dataValue('last','');
+$title =  $block->dataValue('title','');
+$showTitleOption = $block->dataValue('show_title_option', 'item_title');
+?>
+<div class="tiles-block span-<?php echo $span.' '.$last;?>"><div class="item-wrapper">
+
+<?php if (!$attachments && $text):?>  
+    <div class="text-no-image"><?php echo $text;?></div>';
+    <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">Read more</a>
+<?php endif;?>
+
+<?php foreach($attachments as $attachment):
+    if($title):
+      echo "<h3 class='top-title'>".$title."</h3>";
+    endif;
+    echo '<div class="item resource">';
+
+    $item = $attachment->item();
+    if ($item):
+        $media = $attachment->media() ?: $item->primaryMedia();
+        if ($media):?>
+            <div class="tiles-img">
+                <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">
+                <?php if($span =='12'):
+                    $thumbnailType = 'large';
+                endif;?>
+                <?php $mediaurl = $media->thumbnailUrl($thumbnailType);?>
+                <img src="<?php echo $mediaurl;?>">
+            </a></div>
+        <?php endif;?>
+    <?php endif;?>
+    <div class="text-image">
+        <?php if($title):?>
+        <h3 class='box-title'><span><?php echo $title;?></span></h3>
+        <?php endif;?>
+        <?php if ($text):?>
+            <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>"><?php echo $text;?></a>
+        <?php endif;?>
+        <div class="tile-more">
+            <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">Read more</a>
+        </div>
+    </div>
+    </div>
+    <?php break;
+endforeach;
+?>
+</div></div>

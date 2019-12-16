@@ -1,0 +1,113 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$translate = $this->plugin('translate');
+$this->htmlElement('body')->appendAttribute('class', 'item resource browse');
+
+$query = $this->params()->fromQuery();
+$itemSetShow = isset($itemSet);
+if ($itemSetShow):
+    $this->htmlElement('body')->appendAttribute('class', 'item-set');
+    $query['item_set_id'] = $itemSet->id();
+endif;
+$headingTerm = $this->siteSetting('browse_heading_property_term', 'dcterms:title');
+$bodyTerm = $this->siteSetting('browse_body_property_term', 'dcterms:description');
+$sortHeadings = [
+    [
+        'label' => $translate('Title'),
+        'value' => 'dcterms:title'
+    ],
+    [
+        'label' => $translate('Identifier'),
+        'value' => 'dcterms:identifier'
+    ],
+    [
+        'label' => $translate('Class'),
+        'value' => 'resource_class_label'
+    ],
+    [
+        'label' => $translate('Created'),
+        'value' => 'created'
+    ],
+];
+?>
+
+<?php
+    $titles = array(
+        '0' => 'Search',
+        '3' => 'News',
+        '5' => 'Archives',
+        '6' => 'Heritage',
+        '4' => 'Biographies',
+        '12' => 'Documents',
+        '2' => 'Events',
+        '9' => 'Publications',
+        '11' => 'Images',
+        '10' => 'Researchers',
+        'Movie' => 'Movies',
+        'Picture' => 'Pictures',
+        'Poster' => 'Posters'
+    );
+    
+    //var_dump($query);
+    $template = 0;
+    if(isset($query['resource_template_id'])):
+        $template = preg_replace('/\D/', '', $query['resource_template_id']);
+        if(is_array($template)):
+            $template = $template[0];
+        endif;    
+        //var_dump($template);
+        if(!array_key_exists($template,$titles)):
+            $template = 0;
+        endif;
+        if($template == 6 && isset($query['property'][0]['text'])):
+            $template = $query['property'][0]['text'];
+        endif;   
+    endif;    
+?>
+
+<nav class="breadcrumbs">
+    <a href="<?php echo $site->url();?>">Home</a> - 
+    <?php echo $titles[$template];?>
+</nav>
+  
+<?php if ($itemSetShow): ?>
+    <?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
+    <h3><?php echo $translate('Item set'); ?></h3>
+    <div class="metadata">
+        <?php echo $itemSet->displayValues(); ?>
+    </div>
+    <div class="item-set-items">
+    <?php echo '<h3>' . $escape($translate($titles[$template])) . '</h3>'; ?>
+<?php else: ?>
+    <?php echo $this->pageTitle($translate($titles[$template]), 2); ?>
+<?php endif; ?>
+
+<?php //echo $this->searchFilters(); ?>
+
+<div class="browse-controls">
+    <?php echo $this->pagination(); ?>
+    <?php //echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
+    <?php echo $this->sortSelector($sortHeadings); ?>
+</div>
+
+<?php $this->trigger('view.browse.before'); ?>
+<ul class="resource-list">
+<?php
+foreach ($items as $item):
+    $heading = $item->value($headingTerm, ['default' => $translate('[Untitled]')]);
+    $body = $item->value($bodyTerm);
+?>
+    <li class="item resource">
+        <?php echo $item->linkRaw($this->thumbnail($item, 'square')); ?>
+        <div class="description">
+        <h4><?php echo $item->link($heading); ?></h4>
+        <?php if ($body): ?>
+            <?php echo $body; ?>        
+        <?php endif; ?>
+        </div>
+    </li>
+<?php endforeach; ?>
+</ul>
+<?php echo ($itemSetShow) ? '</div>' : ''; ?>
+<?php $this->trigger('view.browse.after'); ?>
+<?php echo $this->pagination(); ?>

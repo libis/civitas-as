@@ -1,0 +1,491 @@
+table {
+    margin: $spacing-l 0;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+    padding: $spacing-s $spacing-m;
+    padding-bottom: $spacing-s - 1px;
+    border-bottom: 1px solid $gray; 
+}
+
+/* @group ----- Header ----- */
+
+header {
+    position: relative;
+    //margin-bottom: 2 * $spacing-l;
+    margin-bottom:0;
+}
+
+/* @end */
+
+/* @group ----- Footer ----- */
+
+footer {
+    //padding: 0 (2 * gutter()) $spacing-l;
+}
+
+/* @end */
+
+.header-container{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  @include container;
+  clear: both;
+
+  .logo{
+      display:flex;
+      width:250px;
+  }
+}
+
+
+/* @group ----- Navigation ----- */
+
+header nav {
+    line-height: 40px;
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+header nav:before {
+    content: "";
+    border: 0;
+    display: none;
+}
+
+header nav ul a {
+    padding: 0;
+    color: rgba($primary,0.9) !important;
+    font-size: 1 * $base-font-size;
+}
+
+header nav ul li {
+    position: static;
+}
+
+header nav.closed ul,
+header nav ul ul li {
+    height: auto;
+    overflow: visible;
+}
+
+header nav ul a:hover {
+    background-color: transparent;
+}
+
+header nav ul li,
+header nav > ul li:last-child,
+header nav > ul ul:hover > li {
+    border: 0;
+}
+
+header nav ul.navigation {
+
+    li ul:before {
+        display: none;
+    }
+
+    & > li {
+        display: inline-block;
+    }
+
+    & > li:not(:last-child) {
+        margin-right: $spacing-m;
+    }
+
+    & > li > ul {
+        position: absolute;
+        top: 100%;
+        left: -9999px;
+        background-color: #fff;
+        padding: 0;
+        list-style: none;
+        width: 100%;
+        border: solid $gray;
+        border-width: 1px 0;
+        padding: ($spacing-m - 1px) 0 ($spacing-s - 1px);
+        display: flex;
+        flex-direction: row;
+        flex-flow: row wrap;
+        z-index: 1;
+    }
+
+    & > li:hover > ul {
+        @include container;
+        padding: $spacing-m (2 * gutter());
+        left: 0;
+        right: 0;
+        border-bottom: 0;
+        border-color: $light;
+
+        &:after {
+            content: "";
+            left: -9999px;
+            right: -9999px;
+            background-color: #fff;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            border-bottom: 1px solid $light;
+            z-index: -1;
+        }
+    }
+
+    & > li > ul > li {
+        width: 25%;
+        font-size: .75 * $base-font-size;
+        font-weight: bold;
+        padding-bottom: $spacing-l;
+    }
+
+    & > li > ul > li ul {
+        font-weight: normal;
+        padding: 0;
+        list-style-type: none;
+        height: auto;
+    }
+}
+
+/* All top-level nav items with siblings are parent items and get an arrow. */
+header nav > ul > li > a:not(:only-child):after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f107";
+    display: inline-block;
+    margin-left: $spacing-s;
+    font-size: 14px;
+}
+
+header nav > ul li:hover ul li {
+    height: auto;
+    padding: 0;
+}
+
+/* Second and Third level items */
+header nav > ul > li > ul > li a,
+header nav > ul > li > ul > li > ul > li a {
+    padding-left: 0;
+}
+
+.sub-menu ul {
+    border-bottom: 1px solid $light;
+    padding-bottom: ($spacing-m - 1px);
+}
+
+.sub-menu li {
+    display: inline-block;
+    border: 0;
+    padding: 0;
+    margin-right: $spacing-m;
+
+    &:first-of-type {
+        border: 0;
+        padding: 0;
+    }
+}
+
+.search-toggle{
+  display: flex;
+  flex: 0 0 auto;
+  width:1rem;
+}
+
+
+/* @end */
+
+/* @group ----- Resource List ----- */
+
+ul.resource-list .resource img {
+    width: 150px;
+    height: auto;
+    float: left;
+    margin-right: 1rem;
+}
+
+ul.resource-list .resource img ~ * {
+    width: calc(100% - #{2.5 * $spacing-l});
+}
+
+/* @end */
+
+/* @group ----- Item Set ----- */
+
+body.item-set.item #content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    & > h2,
+    & > h3 {
+        width: 100%;
+    }
+}
+
+body.item-set .metadata {
+    width: span(4 of 12 alpha);
+    border-left: 5px solid $light;
+    padding-left: gutter();
+    margin-right: gutter();
+}
+
+body.item-set .metadata h4:first-of-type {
+    margin-top: 0;
+}
+
+body.item-set #content .metadata ~ * {
+    width: span(8 of 12 omega);
+    border-left: 1px solid $light;
+    padding-left: gutter();
+}
+
+body.item-set .item-set-items h3 {
+    margin-top: 0;
+}
+
+body.item-set .metadata ~ nav.pagination:first-of-type {
+    margin-bottom: 0;
+}
+/* @end */
+
+/* @group ----- Page and blocks ----- */
+
+.preview-block {
+    .top{
+      @include span(12 of 12);
+    }
+
+    h3{
+      font-weight: 300;
+      text-transform: uppercase;
+      font-size: 2 * $base-font-size;
+      margin-bottom: 1.5rem;
+      line-height: 2rem;
+      color: #333;
+      padding-bottom: 1rem;
+      border-bottom:1px solid rgba($primary,0.08);
+
+      .more-preview{
+        font-size: 1*$base-font-size;
+        font-family: $sans;
+        vertical-align: top;
+        margin-left: 5px;
+        font-weight: 700;
+
+        text-transform: none;
+
+        a{
+          color: $primary;
+          padding:0.3rem  0.5rem;
+          border-left:1px solid $primary;
+        }
+      }
+    }
+
+    .preview{
+      @include container;
+      overflow: visible;
+
+      .item{
+        position: relative;
+        img{box-shadow: 3px 3px 0px 0px rgba($primary,0.3);opacity: 0.7;}
+      }
+
+      .event-img{
+        min-height: 270px;
+        background-size: cover;
+        box-shadow: 3px 3px 0px 0px rgba(146,11,67,0.1);
+
+        h4{
+          padding:1.5rem;
+          margin:0;
+          font-size: 1.5 * $base-font-size;
+          font-weight: 300;
+        }
+
+        a{
+          color: white !important;
+          font-family: $serif;
+          border-bottom: 1px solid rgba(white,0.2);
+        }
+      }
+
+      .preview-item-3{
+        @include span(3 of 12);
+      }
+
+      .preview-item-6{
+        @include span(6 of 12);
+      }
+
+      .event-text{
+        background: rgba($primary,0.2);
+        min-height: 270px;
+      }
+    }
+}
+
+.blocks{
+  @include container;
+
+  .preview-block{
+    //min-height: 450px;
+  }
+
+  .html-block{
+    //@include span(4 of 12);
+    //margin: 30px 0;
+  }
+}
+
+.tiles-block{
+  .item{
+    img{
+      width: 100%;
+    }
+  }
+
+  h3{
+    font-family: $serif;
+    text-transform: none;
+  }
+
+  .tiles-img{
+    a{
+      line-height: 0;
+      display: block;
+    }
+  }
+
+  .tile-more{
+    padding: 0.7rem 0 0 0;
+    text-align: right;
+
+    a {
+      color: $primary;
+      border-bottom: 2px solid $primary;
+      padding: 0.1rem 0.1rem;
+      font-size: 0.9*$base-font-size;
+    }
+  }
+
+}
+
+.span-4{
+  @include span(4 of 12);
+  margin-bottom: 5rem;
+
+  .top-title{
+    font-weight: 300;
+    //color: $primary;
+    text-transform: uppercase;
+    font-family: $sans;
+    font-size: 1.5 * $base-font-size;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(146,11,67,0.08);
+    padding-bottom: 0.5rem;
+    line-height: 30px;
+  }
+
+  .box-title{
+    display: none;
+  }
+
+  .item{
+      @include container;
+      //overflow: hidden;
+      margin-bottom:2rem;
+      box-shadow: 3px 3px 0px 0px rgba($primary,0.06);
+      //border:2px solid rgba($primary,0.2);
+  }
+
+  .tiles-img{
+    padding-bottom: 8rem;
+  }
+
+  .text-image{
+      h3{
+        font-size: 1.4 * $base-font-size;
+      }
+      //font-size: 1 * $base-font-size;
+      position: absolute;
+      bottom: 0;
+      padding: 2rem 1rem;
+      background: white;
+      border-top: 3px solid $primary;
+
+      p{
+        height:100px;
+      }
+  }
+}
+
+.span-12{
+  @include container;
+  margin: 2rem 0 4rem;
+
+  .item-wrapper{
+    @include span(12 of 12);
+  }
+
+  .top-title{
+    display: none;
+  }
+
+  h3{
+    font-size: 2.6 * $base-font-size;
+    margin-bottom: 1.2rem;
+    //border-bottom: 1px solid rgba($primary,0.1);
+  }
+
+  .item{
+      @include container;
+      background: white;
+  }
+
+  .tiles-img{
+    @include span(6 of 12);
+    padding-left: 0;
+  }
+
+  .text-image{
+      @include span(6 of 12);
+      font-size: 1 * $base-font-size;
+      padding: 1.8rem;
+      background:white;
+  }
+}
+
+#content{
+  min-height: 80vh;
+}
+
+.show{
+  .top{
+    @include span(12 of 12);
+  }
+
+  .media-embeds{
+    @include span(4 of 12);
+  }
+
+  .metadata{
+    @include span(8 of 12);
+    background: white;
+    padding-top:1rem;
+    padding-bottom:1rem;
+    margin-bottom:2rem;
+
+    .property h4 {
+      margin-top: 0;
+    }
+  }
+}
+
+/* @end */

@@ -1,0 +1,41 @@
+// Susy
+
+$susy: (
+    columns:                            12,
+    gutters:                            2/4,
+    gutter-position: inside,
+    container:                          1200px,
+    global-box-sizing:                  border-box
+);
+
+// Fonts
+$sans:                                  'Source Sans Pro', sans-serif;
+$serif:                                 'Source Serif Pro', serif;
+
+// Colors
+
+$primary:                               #920B43;//#960643;
+$gray:                                  #ababab;
+$bold:                                  darken($gray, 20%);
+$light:                                 lighten($gray, 20%);
+$bg:                                    #f2f1ee;//#f7f7f7;
+
+// Typography
+
+$base-font-size:                        16px;
+$base-line-height:                      26px;
+
+// Units
+
+$spacing-s:                             .25 * $base-line-height;
+$spacing-m:                             .5 * $base-line-height;
+$spacing-l:                             $base-line-height;
+
+// Mixins
+
+@mixin container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    @include susy-clearfix;
+}
