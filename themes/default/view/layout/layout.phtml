@@ -15,7 +15,7 @@ $title = $this->pageTitle($site->title());
 $userBar = $this->userBar();
 $logo = $this->themeSettingAssetUrl('logo');
 if ($logo):
-    $title = '<img src="' . $this->escapeHtml($logo) . '">';
+    $title = '<img src="' . $this->escapeHtml($logo) . '">'; 
 endif;
 ?>
 <script src="https://kit.fontawesome.com/582fb8c29f.js" crossorigin="anonymous"></script>
@@ -78,7 +78,7 @@ endif;
               </div>
             </div>
         </header>
-        <?php if($home):?>        
+        <?php if($home):?>
         <section class="hero-section">
           <div class="hero">
             <div class="hero-container">
@@ -91,7 +91,7 @@ endif;
             </div>
           </div>
         </section>
-        <?php endif;?>  
+        <?php endif;?>
         <div id="content" role="main">
             <?php echo $this->content; ?>
         </div>
