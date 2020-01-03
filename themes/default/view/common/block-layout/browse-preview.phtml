@@ -14,7 +14,7 @@
   <?php
     $size = 'square';
     $span = "preview-item-".(12 / sizeof($this->resources));
-    if($span < 6):
+    if(12 / sizeof($this->resources) < 6):
       $size = 'square';
     else:
       $size = 'large';
@@ -34,6 +34,9 @@
         <div class="event-img"  style="background: center / cover no-repeat url(<?php echo $media;?>)">
           <div class="event-text">
             <h4><?php echo $resource->link($heading); ?></h4>
+            <div class="more-link">
+              <?php echo $resource->link('Read more'); ?>
+            </div>
           </div>
         </div>
       </div>

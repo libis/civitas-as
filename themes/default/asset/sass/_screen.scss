@@ -1,3 +1,4 @@
+/* main: style.scss */
 * {
     box-sizing: border-box;
 }
@@ -387,7 +388,7 @@ nav.pagination {
 .breadcrumbs {
     font-size: .75 * $base-font-size;
     margin: $spacing-l 0 (-$spacing-m);
-    
+
     a{
         color: $primary;
     }
@@ -743,6 +744,57 @@ footer {
     margin-bottom: 1.5rem;
 }
 
+.preview-block{
+  .event-img{
+    min-height: 270px;
+    background-size: cover;
+    box-shadow: 3px 3px 0px 0px rgba(146,11,67,0.1);
+
+    .event-text{
+        padding:1rem;
+        background: rgba(#333,0.4);
+        min-height: 270px;
+        position: relative;
+    }
+
+    h4{
+      margin:0;
+      font-size: 1.5 * $base-font-size;
+      font-weight: 600;
+      max-height:250px;
+      margin-bottom: 1rem;
+
+      a{
+        color: white !important;
+        font-family: $serif;
+      }
+    }
+
+    .more-link{
+      position: absolute;
+      bottom:1rem;
+      a {
+        color:white;
+        padding:0.2rem;
+
+        &::before {
+            font-family: "Font Awesome 5 Free";
+            content: "\f0da";
+            display: inline-block;
+            margin-right: 6.5px;
+            font-size: 14px;
+            color: $primary;
+        }
+      }
+
+
+    }
+
+  }
+
+}
+
+
 .resource-list.preview + a {
     text-align: center;
     padding: 0.3rem 0;
@@ -866,7 +918,7 @@ ul.resource-list .resource {
     position: relative;
     background:white;
     padding: 1rem;
-    
+
 
     & > *:last-child {
         margin-bottom: 0;
