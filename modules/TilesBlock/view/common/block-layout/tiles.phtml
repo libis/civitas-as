@@ -1,4 +1,4 @@
-<?php 
+<?php
 $alignmentClass = $block->dataValue('alignment', 'left');
 $thumbnailType = $block->dataValue('thumbnail_type', 'square');
 $text =  $block->dataValue('text','');
@@ -9,9 +9,42 @@ $showTitleOption = $block->dataValue('show_title_option', 'item_title');
 ?>
 <div class="tiles-block span-<?php echo $span.' '.$last;?>"><div class="item-wrapper">
 
-<?php if (!$attachments && $text):?>  
-    <div class="text-no-image"><?php echo $text;?></div>';
-    <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">Read more</a>
+<?php if (!$attachments && $text):?>
+    <?php if($title):
+      echo "<h3 class='top-title'>".$title."</h3>";
+    endif;?>
+    <div class="text-no-image">
+      <?php echo $text;?>
+
+      <?php foreach ($this->resources as $resource):?>
+          <?php $heading = $resource->value('dcterms:title');?>
+          <div class="tile-person">
+            <?php
+              $media = $resource->media();
+              if($media):
+                $mediaurl = $media[0]->thumbnailUrl('square');
+              else:
+                $mediaurl = "";
+              endif;
+
+              $url = $resource->url();
+            ?>
+
+            <div class="image">
+              <img src="<?php echo  $mediaurl;?>">
+            </div>
+            <div class="name">
+              <span><a href="<?php echo $url;?>"><?php echo $heading;?></a></span>
+            </div>
+          </div>
+      <?php endforeach; ?>
+
+      <?php if($block->dataValue('link')):?>
+        <div class="tile-more">
+          <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">Read more</a>
+        </div>
+      <?php endif;?>
+    </div>
 <?php endif;?>
 
 <?php foreach($attachments as $attachment):

@@ -71,11 +71,12 @@ endif;
                   'maxDepth' => $this->themeSetting('nav_depth') - 1
               ]);
               ?>
-              </nav>
-              <!--<a class="search-toggle"><i class="fas fa-search"></i></a>-->
               <div id="search">
                   <?php echo $this->partial('common/search-form'); ?>
               </div>
+              </nav>
+              <!--<a class="search-toggle"><i class="fas fa-search"></i></a>-->
+
             </div>
         </header>
         <?php if($home):?>

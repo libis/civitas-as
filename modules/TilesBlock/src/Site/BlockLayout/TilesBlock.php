@@ -72,6 +72,14 @@ class TilesBlock extends AbstractBlockLayout
         $html .= $view->formRow($textarea);
         $html .= '<div class="field">
           <div class="field-meta">
+              <label>Query</label>
+          </div>
+          <div class="inputs">
+              <input type="text" class="" value="'.(!isset($block) ? '' : $block->dataValue('query')).'" name="o:block[__blockIndex__][o:data][query]">
+          </div>
+        </div>';
+        $html .= '<div class="field">
+          <div class="field-meta">
               <label>Link</label>
           </div>
           <div class="inputs">
@@ -144,10 +152,32 @@ class TilesBlock extends AbstractBlockLayout
     public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
     {
       $attachments = $block->attachments();
-      
+      $resources = array();
+
+      if($block->dataValue('query')):
+        parse_str($block->dataValue('query'), $query);
+        $originalQuery = $query;
+
+        $site = $block->page()->site();
+
+        $query['site_id'] = $site->id();
+        $query['limit'] = $block->dataValue('limit', 12);
+
+        if (!isset($query['sort_by'])) {
+            $query['sort_by'] = 'created';
+        }
+        if (!isset($query['sort_order'])) {
+            $query['sort_order'] = 'desc';
+        }
+
+        $response = $view->api()->search('items', $query);
+        $resources = $response->getContent();
+      endif;
+
       return $view->partial('common/block-layout/tiles', [
         'block' => $block,
-        'attachments' => $block->attachments()
+        'attachments' => $block->attachments(),
+        'resources' => $resources
       ]);
     }
 }

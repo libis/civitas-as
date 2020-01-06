@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  
-  omeka-s:    
+
+  omeka-s:
     build: ./
     ports:
       - "9000:80"
@@ -11,6 +11,6 @@ services:
       - ./themes/:/var/www/html/civitas/themes/
       - ./files/:/var/www/html/civitas/files/
       - ./config/:/var/www/html/civitas/config/
-      - ${PWD}/htaccess:/var/www/html/civitas..htaccess
-      - ${PWD}/imagemagick-policy.xml:/var/www/html/civitas/imagemagick-policy.xml
+      - ./htaccess:/var/www/html/civitas/.htaccess
+      - ./imagemagick-policy.xml:/var/www/html/civitas/imagemagick-policy.xml
     restart: always
