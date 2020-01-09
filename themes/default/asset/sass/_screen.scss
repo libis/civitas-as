@@ -46,16 +46,17 @@ h1 {
 
 h2 {
     font-size: 1.8 * $base-font-size;
-    line-height: 1.5 * $base-line-height;
+    line-height: 1.2 * $base-line-height;
     font-weight: 300;
     text-transform: uppercase;
 }
 
 h3 {
     font-size: 1.25 * $base-font-size;
-    line-height: 1.5 * $base-line-height;
-    text-transform: uppercase;
+    line-height: 1.2 * $base-line-height;
     margin: 0.5rem 0;
+    font-weight: 600;
+    margin-top: 0;
 }
 
 h4 {
@@ -67,6 +68,9 @@ img {
     height: auto;
 }
 
+ul{
+  margin-top: 2px;
+}
 /* @group ----- Forms ----- */
 
 input,
@@ -308,15 +312,24 @@ header nav > ul > li > ul > li > ul > li a {
     padding-left: 2 * $spacing-l;
 }
 
+.sub-menu{
+    @include span(12 of 12);
+}
+
 .sub-menu ul {
     padding-left: 0;
     list-style-type: none;
     margin-top: $spacing-m;
+    margin-bottom:0;
+
+    a{
+      color: $primary;
+    }
 }
 
 .sub-menu li {
     font-size: .75 * $base-font-size;
-    font-weight: bold;
+    font-weight: 500;
     border-bottom: 1px solid $light;
     padding: $spacing-s 0 ($spacing-s - 1px);
 
@@ -327,7 +340,7 @@ header nav > ul > li > ul > li > ul > li a {
 }
 
 nav.pagination {
-    margin-bottom: $spacing-l;
+    margin-bottom: 1rem;
     font-size: $base-font-size;
     line-height: 1.5 * $base-line-height;
 }
@@ -387,6 +400,7 @@ nav.pagination {
 }
 
 .breadcrumbs {
+    @include span(12 of 12);
     font-size: .75 * $base-font-size;
     margin: $spacing-l 0 (-$spacing-m);
 
@@ -444,10 +458,14 @@ nav.closed #search{
   display: none;
 }
 
+.header-wrapper{
+  @include container;
+}
+
 .header-container{
+  @include span(12 of 12);
   padding-top:0.5rem;
   padding-bottom:0.5rem;
-  margin: 0 1rem;
 }
 
 .site-title:hover,
@@ -917,6 +935,11 @@ footer {
       line-height: 0;
       display: block;
     }
+
+    background-size:cover !important;
+    overflow: hidden;
+    max-height: 300px;
+    height: 200px;
   }
 
   .tile-more{
@@ -930,23 +953,22 @@ footer {
       font-size: 0.9*$base-font-size;
     }
   }
-}
-
-.span-4{
-  @include span(12 of 12);
 
   .top-title{
     font-weight: 300;
-    //color: $primary;
-    text-transform: uppercase;
     font-family: $sans;
     font-size: 1.5 * $base-font-size;
     margin-top: 0;
     margin-bottom: 0.7rem;
     border-bottom: 1px solid rgba(146,11,67,0.08);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.1rem;
     line-height: 30px;
   }
+
+}
+
+.span-4{
+  @include span(12 of 12);
 
   .box-title{
     display: none;
@@ -960,43 +982,24 @@ footer {
       //border:2px solid rgba($primary,0.2);
   }
 
-  .tiles-img{
-    padding-bottom: 8rem;
-  }
-
   .text-image{
-      h3{
-        font-size: 1.4 * $base-font-size;
-      }
-      //font-size: 1 * $base-font-size;
-      position: absolute;
-      bottom: 0;
-      padding: 1rem 1rem 1.5rem 1rem;
-      background: white;
-      border-top: 3px solid $primary;
-
       p{
         height:100px;
       }
   }
 }
 
+.span-6{
+  .tiles-img{
+    height:300px;
+  }
+}
+
 .span-12{
   @include container;
-  margin: 2rem 0 4rem;
 
   .item-wrapper{
     @include span(12 of 12);
-  }
-
-  .top-title{
-    display: none;
-  }
-
-  h3{
-    font-size: 2.6 * $base-font-size;
-    margin-bottom: 1.2rem;
-    //border-bottom: 1px solid rgba($primary,0.1);
   }
 
   .item{
@@ -1014,6 +1017,8 @@ footer {
       font-size: 1 * $base-font-size;
       padding: 1.8rem;
       background:white;
+      position: relative;
+
   }
 }
 
@@ -1135,11 +1140,10 @@ ul.resource-list {
 }
 
 ul.resource-list .resource {
-    margin-bottom: 0.5rem;
+  @include span(12 of 12);
+    margin-bottom: 1rem;
     overflow: hidden;
     position: relative;
-    background:white;
-    padding: 1rem;
 
 
     & > *:last-child {
@@ -1156,13 +1160,17 @@ ul.resource-list .resource img {
 
 ul.resource-list .resource h4 {
     margin-top: 0;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 ul.resource-list .resource .description {
     position: relative;
     overflow: auto;
+    min-height: 150px;
+    max-width: 800px;
+    background:white;
+    padding:1rem;
 }
 
 ul.resource-list .resource img ~ * {
@@ -1213,12 +1221,13 @@ body.resource #content > h2:first-of-type + h3 {
 }
 
 .property {
-    margin-bottom: $spacing-l;
+    margin-bottom: 1rem;
 }
 
 .property h4 {
     margin-bottom: 0;
-    font-size: .75 * $base-font-size;
+    font-size: .95 * $base-font-size;
+    font-weight: 700;
 }
 
 .resource-link img {
@@ -1319,3 +1328,51 @@ a.metadata-browse-link {
 }
 
 /* @end */
+
+.top{
+  @include span(12 of 12);
+}
+
+.results{
+  @include container;
+  clear: both;
+
+  .browse-controls{
+    padding-left: 1.38889%;
+    padding-right: 1.38889%;
+  }
+
+  .resource-list{
+    display: block;
+    overflow: auto;
+
+  }
+}
+
+.logos-page{
+
+  justify-content: space-around;
+  text-align: center;
+
+  a{
+    display: inline-block;
+  }
+
+  img{
+    height: 60px;
+    margin: 1rem 1rem;
+    max-height: 60px;
+
+    &::last-of-type{
+
+    }
+  }
+}
+
+.search-results-container{
+  @include span(12 of 12);
+}
+.search-results{
+  padding:1rem;
+  background: white;
+}

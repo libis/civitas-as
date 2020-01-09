@@ -161,7 +161,7 @@ class TilesBlock extends AbstractBlockLayout
         $site = $block->page()->site();
 
         $query['site_id'] = $site->id();
-        $query['limit'] = $block->dataValue('limit', 12);
+        $query['limit'] = $block->dataValue('limit', 5);
 
         if (!isset($query['sort_by'])) {
             $query['sort_by'] = 'created';

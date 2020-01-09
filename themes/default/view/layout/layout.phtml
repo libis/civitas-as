@@ -55,29 +55,33 @@ endif;
                 $home = false;
               }
             ?>
+            <div class="header-wrapper">
 
-            <div class="header-container">
-              <div class="logo">
-                <?php if ($this->themeSetting('logo')): ?>
-                <a href="<?php echo $site->url(); ?>" class="site-title"><img src="<?php echo $this->themeSettingAssetUrl('logo'); ?>" title="Logo"></a>
-                <?php else: ?>
-                <a href="<?php echo $site->url(); ?>" class="site-title"><?php echo $this->pageTitle($site->title()); ?></a>
-                <?php endif; ?>
+
+              <div class="header-container">
+
+                <div class="logo">
+                  <?php if ($this->themeSetting('logo')): ?>
+                  <a href="<?php echo $site->url(); ?>" class="site-title"><img src="<?php echo $this->themeSettingAssetUrl('logo'); ?>" title="Logo"></a>
+                  <?php else: ?>
+                  <a href="<?php echo $site->url(); ?>" class="site-title"><?php echo $this->pageTitle($site->title()); ?></a>
+                  <?php endif; ?>
+                </div>
+
+                <nav>
+                <?php
+                echo $site->publicNav()->menu()->renderMenu(null, [
+                    'maxDepth' => $this->themeSetting('nav_depth') - 1
+                ]);
+                ?>
+                <div id="search">
+                    <?php echo $this->partial('common/search-form'); ?>
+                </div>
+                </nav>
+                <!--<a class="search-toggle"><i class="fas fa-search"></i></a>-->
+
               </div>
-
-              <nav>
-              <?php
-              echo $site->publicNav()->menu()->renderMenu(null, [
-                  'maxDepth' => $this->themeSetting('nav_depth') - 1
-              ]);
-              ?>
-              <div id="search">
-                  <?php echo $this->partial('common/search-form'); ?>
-              </div>
-              </nav>
-              <!--<a class="search-toggle"><i class="fas fa-search"></i></a>-->
-
-            </div>
+            </div>  
         </header>
         <?php if($home):?>
         <section class="hero-section">

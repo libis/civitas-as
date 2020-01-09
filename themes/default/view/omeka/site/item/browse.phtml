@@ -47,67 +47,85 @@ $sortHeadings = [
         'Picture' => 'Pictures',
         'Poster' => 'Posters'
     );
-    
+
     //var_dump($query);
     $template = 0;
     if(isset($query['resource_template_id'])):
         $template = preg_replace('/\D/', '', $query['resource_template_id']);
         if(is_array($template)):
             $template = $template[0];
-        endif;    
+        endif;
         //var_dump($template);
         if(!array_key_exists($template,$titles)):
             $template = 0;
         endif;
         if($template == 6 && isset($query['property'][0]['text'])):
             $template = $query['property'][0]['text'];
-        endif;   
-    endif;    
+        endif;
+    endif;
 ?>
-
-<nav class="breadcrumbs">
-    <a href="<?php echo $site->url();?>">Home</a> - 
-    <?php echo $titles[$template];?>
-</nav>
-  
-<?php if ($itemSetShow): ?>
-    <?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
-    <h3><?php echo $translate('Item set'); ?></h3>
-    <div class="metadata">
-        <?php echo $itemSet->displayValues(); ?>
-    </div>
-    <div class="item-set-items">
-    <?php echo '<h3>' . $escape($translate($titles[$template])) . '</h3>'; ?>
-<?php else: ?>
-    <?php echo $this->pageTitle($translate($titles[$template]), 2); ?>
-<?php endif; ?>
-
-<?php //echo $this->searchFilters(); ?>
-
-<div class="browse-controls">
-    <?php echo $this->pagination(); ?>
-    <?php //echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
-    <?php echo $this->sortSelector($sortHeadings); ?>
-</div>
-
-<?php $this->trigger('view.browse.before'); ?>
-<ul class="resource-list">
-<?php
-foreach ($items as $item):
-    $heading = $item->value($headingTerm, ['default' => $translate('[Untitled]')]);
-    $body = $item->value($bodyTerm);
-?>
-    <li class="item resource">
-        <?php echo $item->linkRaw($this->thumbnail($item, 'square')); ?>
-        <div class="description">
-        <h4><?php echo $item->link($heading); ?></h4>
-        <?php if ($body): ?>
-            <?php echo $body; ?>        
-        <?php endif; ?>
+  <nav class="breadcrumbs">
+      <a href="<?php echo $site->url();?>">Home</a> -
+      <?php echo $titles[$template];?>
+  </nav>
+  <div class="top">
+    <?php if ($itemSetShow): ?>
+        <?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
+        <h3><?php echo $translate('Item set'); ?></h3>
+        <div class="metadata">
+            <?php echo $itemSet->displayValues(); ?>
         </div>
-    </li>
-<?php endforeach; ?>
-</ul>
-<?php echo ($itemSetShow) ? '</div>' : ''; ?>
-<?php $this->trigger('view.browse.after'); ?>
-<?php echo $this->pagination(); ?>
+        <div class="item-set-items">
+        <?php echo '<h3>' . $escape($translate($titles[$template])) . '</h3>'; ?>
+    <?php else: ?>
+        <?php echo $this->pageTitle($translate($titles[$template]), 2); ?>
+    <?php endif; ?>
+  </div>
+
+  <div class="results">
+    <?php //echo $this->searchFilters(); ?>
+
+    <div class="browse-controls">
+        <?php echo $this->pagination(); ?>
+        <?php //echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
+        <?php echo $this->sortSelector($sortHeadings); ?>
+    </div>
+
+    <?php $this->trigger('view.browse.before'); ?>
+    <ul class="resource-list">
+    <?php
+    foreach ($items as $item):
+        $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle();
+        $body = $bodyTerm ? $item->value($bodyTerm) : $item->displayDescription();
+        $type = $item->resourceTemplate();
+        if($type && $template):
+          $type= $type->label();
+        else:
+          $type= "";
+        endif;
+    ?>
+        <li class="item resource <?php echo $type;?>">
+            <?php echo $item->linkRaw($this->thumbnail($item, 'square')); ?>
+            <div class="description">
+            <h4><?php echo $item->link($heading); ?></h4>
+            <?php if($type != 'Heritage'):?>
+              <?php if ($body): ?>
+                  <?php
+                    $wrapped = wordwrap($body, 200, "\n", 1);
+                    $lines = explode("\n", $wrapped);
+                    (array_key_exists('1', $lines)) ? $suffix = '...' : $suffix = '';
+                    $new_str = $lines[0] . $suffix;
+                    echo $new_str;
+                  ?>
+              <?php endif; ?>
+            <?php endif;?>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+    <?php echo ($itemSetShow) ? '</div>' : ''; ?>
+    <?php $this->trigger('view.browse.after'); ?>
+    <div class="browse-controls">
+      <?php echo $this->pagination(); ?>
+    </div>
+  </div>

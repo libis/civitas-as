@@ -39,13 +39,12 @@ endif;
         endif;
     endif;
 ?>
-
+<nav class="breadcrumbs">
+    <a href="<?php echo $site->url();?>">Home</a> -
+    <a href="<?php echo $site->url().$titles[$template]['url'];?>"><?php echo $titles[$template]['title'];?></a> -
+    <?php echo $item->displayTitle();?>
+</nav>
 <div class="top">
-    <nav class="breadcrumbs">
-        <a href="<?php echo $site->url();?>">Home</a> -
-        <a href="<?php echo $site->url().$titles[$template]['url'];?>"><?php echo $titles[$template]['title'];?></a> -
-        <?php echo $item->displayTitle();?>
-    </nav>
     <?php echo $this->pageTitle($item->displayTitle(), 2); ?>
 </div>
 <?php $this->trigger('view.show.before'); ?>

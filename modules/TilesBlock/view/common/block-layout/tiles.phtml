@@ -7,14 +7,18 @@ $last =  $block->dataValue('last','');
 $title =  $block->dataValue('title','');
 $showTitleOption = $block->dataValue('show_title_option', 'item_title');
 ?>
-<div class="tiles-block span-<?php echo $span.' '.$last;?>"><div class="item-wrapper">
+<div class="tiles-block span-<?php echo $span;?>"><div class="item-wrapper">
 
-<?php if (!$attachments && $text):?>
+<?php if (!$attachments):?>
     <?php if($title):
       echo "<h3 class='top-title'>".$title."</h3>";
     endif;?>
     <div class="text-no-image">
-      <?php echo $text;?>
+      <?php
+        if($text):
+          echo $text;
+        endif;
+      ?>
 
       <?php foreach ($this->resources as $resource):?>
           <?php $heading = $resource->value('dcterms:title');?>
@@ -57,22 +61,18 @@ $showTitleOption = $block->dataValue('show_title_option', 'item_title');
     if ($item):
         $media = $attachment->media() ?: $item->primaryMedia();
         if ($media):?>
-            <div class="tiles-img">
-                <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">
-                <?php if($span =='12'):
-                    $thumbnailType = 'large';
-                endif;?>
-                <?php $mediaurl = $media->thumbnailUrl($thumbnailType);?>
-                <img src="<?php echo $mediaurl;?>">
-            </a></div>
+          <?php if($span >= '6'):
+              $thumbnailType = 'large';
+          endif;?>
+          <?php $mediaurl = $media->thumbnailUrl($thumbnailType);?>
+          <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">
+            <div class="tiles-img" style="background:url(<?php echo $mediaurl;?>) no-repeat center center;">
+          </div></a>
         <?php endif;?>
     <?php endif;?>
     <div class="text-image">
-        <?php if($title):?>
-        <h3 class='box-title'><span><?php echo $title;?></span></h3>
-        <?php endif;?>
         <?php if ($text):?>
-            <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>"><?php echo $text;?></a>
+           <?php echo $text;?>
         <?php endif;?>
         <div class="tile-more">
             <a href="<?php echo $block->page()->site()->url().$block->dataValue('link');?>">Read more</a>
@@ -83,3 +83,6 @@ $showTitleOption = $block->dataValue('show_title_option', 'item_title');
 endforeach;
 ?>
 </div></div>
+<?php if($last):?>
+  <div class="last" style="clear:both"></div>
+<?php endif;?>

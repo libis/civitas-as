@@ -51,8 +51,9 @@ footer {
 header nav {
     line-height: 40px;
     margin-left: auto;
-    margin-right: 2rem;
     display: flex;
+    align-items: center;
+    height: 56px;
 }
 
 header nav:before {
@@ -65,6 +66,7 @@ header nav ul a {
     padding: 0;
     color: rgba($primary,0.9) !important;
     font-size: 1 * $base-font-size;
+    line-height: 56px;
 }
 
 header nav ul li {
@@ -95,6 +97,7 @@ header nav ul.navigation {
 
     & > li {
         display: inline-block;
+        height: 56px;
     }
 
     & > li:not(:last-child) {
@@ -103,7 +106,7 @@ header nav ul.navigation {
 
     & > li > ul {
         position: absolute;
-        top: 100%;
+        top: 56px;
         left: -9999px;
         background-color: #fff;
         padding: 0;
@@ -119,8 +122,7 @@ header nav ul.navigation {
     }
 
     & > li:hover > ul {
-        @include container;
-        padding: $spacing-m (2 * gutter());
+        padding: 5px 0;
         left: 0;
         right: 0;
         border-bottom: 0;
@@ -140,10 +142,11 @@ header nav ul.navigation {
     }
 
     & > li > ul > li {
-        width: 25%;
+        width: auto;
         font-size: .75 * $base-font-size;
         font-weight: bold;
         padding-bottom: $spacing-l;
+        margin-right: 20px;
     }
 
     & > li > ul > li ul {
@@ -176,7 +179,7 @@ header nav > ul > li > ul > li > ul > li a {
 
 .sub-menu ul {
     border-bottom: 1px solid $light;
-    padding-bottom: ($spacing-m - 1px);
+    padding-bottom: 5px;
 }
 
 .sub-menu li {
@@ -198,9 +201,15 @@ header nav > ul > li > ul > li > ul > li a {
 }
 
 
-nav.closed #search{
+nav.closed #search,nav.open #search{
   display: inherit;
   margin-left: 1rem;
+}
+
+
+
+nav.open #search, nav.open .navigation{
+  padding: 0;
 }
 
 
@@ -371,9 +380,6 @@ body.item-set .metadata ~ nav.pagination:first-of-type {
 }
 
 .show{
-  .top{
-    @include span(12 of 12);
-  }
 
   .media-embeds{
     @include span(4 of 12);
@@ -392,4 +398,24 @@ body.item-set .metadata ~ nav.pagination:first-of-type {
   }
 }
 
+.results{
+  .Heritage{
+    @include span(3 of 12);
+    background: transparent !important;
+    padding-top:0 !important;
+
+    img{
+      width:100% !important;
+      float: none !important;
+    }
+
+    .description{
+      height:50px;
+      h4{
+        margin-bottom: 0;
+      }
+
+    }
+  }
+}
 /* @end */
