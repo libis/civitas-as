@@ -27,8 +27,7 @@ return [
     'service_manager' => [
         'aliases' => [
             'Omeka\File\Store' => 'Omeka\File\Store\Local',
-            'Omeka\File\Thumbnailer' => 'Omeka\File\Thumbnailer\ImageMagick',
-            'Omeka\Job\DispatchStrategy' => 'Omeka\Job\DispatchStrategy\Synchronous'
+            'Omeka\File\Thumbnailer' => 'Omeka\File\Thumbnailer\ImageMagick'
         ],
     ],
 ];

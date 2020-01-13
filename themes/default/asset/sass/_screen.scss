@@ -376,6 +376,10 @@ nav.pagination {
     color: $gray;
     line-height: $base-line-height;
 
+    &:before{
+      line-height: 22px;
+    }
+
     &:hover {
         background-color: $bold;
     }
@@ -489,6 +493,7 @@ button.o-icon-search {
     display: flex;
     width: 300px;
     flex-wrap: nowrap;
+    margin-bottom:0;
 
     input[type="text"] {
        width: 100%;
@@ -875,7 +880,7 @@ footer {
       font-weight: 300;
       text-transform: uppercase;
       font-size: 2 * $base-font-size;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       line-height: 2rem;
       color: #333;
       padding-bottom: 1rem;
@@ -1367,6 +1372,20 @@ a.metadata-browse-link {
 
     }
   }
+}
+
+.browse-meta{
+  clear:both;
+  margin-bottom: 0.5rem;
+
+  .value{
+    overflow: hidden;
+  }
+}
+.browse-meta h4{
+  margin-bottom: 0 !important;
+  float: left;
+  width: 150px;
 }
 
 .search-results-container{

@@ -43,9 +43,9 @@ $sortHeadings = [
         '9' => 'Publications',
         '11' => 'Images',
         '10' => 'Researchers',
-        'Movie' => 'Movies',
-        'Picture' => 'Pictures',
-        'Poster' => 'Posters'
+        'movie' => 'Movies',
+        'picture' => 'Pictures',
+        'poster' => 'Posters'
     );
 
     //var_dump($query);
@@ -107,8 +107,11 @@ $sortHeadings = [
         <li class="item resource <?php echo $type;?>">
             <?php echo $item->linkRaw($this->thumbnail($item, 'square')); ?>
             <div class="description">
-            <h4><?php echo $item->link($heading); ?></h4>
-            <?php if($type != 'Heritage'):?>
+              <div class="heading">
+                <h4><?php echo $item->link($heading); ?></h4>
+              </div>
+
+            <?php if($type != 'Heritage' && $type != 'Publication'):?>
               <?php if ($body): ?>
                   <?php
                     $wrapped = wordwrap($body, 200, "\n", 1);
@@ -118,6 +121,32 @@ $sortHeadings = [
                     echo $new_str;
                   ?>
               <?php endif; ?>
+            <?php endif;?>
+            <?php if($type == 'Publication'):?>
+               <div class="browse-meta property">
+                 <h4>Author</h4>
+                 <div class="value"><?php echo $item->value('dcterms:creator');?></div>
+               </div>
+               <div class="browse-meta property">
+                 <h4>Serie / periodical </h4>
+                 <div class="value"><?php echo $item->value('dcterms:isPartOf');?></div>
+               </div>
+               <div class="browse-meta property">
+                 <h4>Date </h4>
+                 <div class="value"><?php echo $item->value('dcterms:date');?></div>
+               </div>
+               <div class="browse-meta property">
+                 <h4>Pages</h4>
+                 <div class="value"><?php echo $item->value('dcterms:extent');?></div>
+               </div>
+               <div class="browse-meta property">
+                 <h4>ISBN/ISSN</h4>
+                 <div class="value"><?php echo $item->value('dcterms:identifier');?></div>
+               </div>
+               <div class="browse-meta property">
+                 <h4>Link</h4>
+                 <div class="value"><a target="_blank" href="<?php echo $item->value('dcterms:relation');?>"><?php echo $item->value('dcterms:relation');?></a></div>
+               </div>
             <?php endif;?>
             </div>
         </li>

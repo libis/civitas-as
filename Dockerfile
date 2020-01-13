@@ -16,7 +16,8 @@ RUN apt-get -qq update && apt-get -qq -y --no-install-recommends install \
     imagemagick \
     libmagickwand-dev \
     wget \
-    ghostscript
+    ghostscript \
+    ffmpeg
 
 # Install the PHP extensions we need
 RUN docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql mysqli gd
@@ -28,6 +29,8 @@ RUN unzip -q /var/www/omeka-s.zip -d /var/www/ \
 &&  rm -rf /var/www/html/civitas/ \
 &&  mv /var/www/omeka-s /var/www/html/civitas/ \
 &&  chown -R www-data:www-data /var/www/html/
+
+ADD php.ini-development /usr/local/etc/php
 
 VOLUME /var/www/html/civitas/
 
