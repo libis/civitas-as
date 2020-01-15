@@ -485,7 +485,7 @@
     background: url(../img/Civitas_2018-40.jpg);
     background-size: cover;
     background-position: 50% 50%;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
   .hero {
     background-image: linear-gradient(to bottom right, rgba(146, 11, 67, 0.7), rgba(146, 11, 67, 0.2));
