@@ -1203,6 +1203,11 @@
     display: block;
     overflow: auto;
   }
+  .results .resource-list .date {
+    font-weight: 200;
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
   .logos-page {
     justify-content: space-around;
     text-align: center;

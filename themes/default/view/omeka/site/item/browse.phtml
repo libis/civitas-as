@@ -110,9 +110,11 @@ $sortHeadings = [
               <div class="heading">
                 <h4><?php echo $item->link($heading); ?></h4>
               </div>
-
-            <?php if($type != 'Heritage' && $type != 'Publication'):?>
-              <?php if ($body): ?>
+              <?php if($type == 'News' && $type != 'Event'):?>
+                <div class="date"><?php echo $item->value('dcterms:date');?></div>                
+              <?php endif;?>
+              <?php if($type != 'Heritage' && $type != 'Publication'):?>
+                <?php if ($body): ?>
                   <?php
                     $wrapped = wordwrap($body, 200, "\n", 1);
                     $lines = explode("\n", $wrapped);
@@ -120,9 +122,9 @@ $sortHeadings = [
                     $new_str = $lines[0] . $suffix;
                     echo $new_str;
                   ?>
-              <?php endif; ?>
-            <?php endif;?>
-            <?php if($type == 'Publication'):?>
+                <?php endif; ?>
+              <?php endif;?>
+              <?php if($type == 'Publication'):?>
                <div class="browse-meta property">
                  <h4>Author</h4>
                  <div class="value"><?php echo $item->value('dcterms:creator');?></div>

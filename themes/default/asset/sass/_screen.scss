@@ -1351,6 +1351,11 @@ a.metadata-browse-link {
     display: block;
     overflow: auto;
 
+    .date{
+      font-weight: 200;
+      margin-bottom: 0.5rem;
+      color: #666;
+    }
   }
 }
 
