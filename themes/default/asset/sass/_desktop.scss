@@ -1,4 +1,7 @@
-/* main: style.scss */
+#content {
+    padding: 0 (2 * gutter()) $spacing-l;
+}
+
 table {
     margin: $spacing-l 0;
     border-collapse: collapse;
@@ -16,8 +19,16 @@ td {
 
 header {
     position: relative;
-    //margin-bottom: 2 * $spacing-l;
-    margin-bottom:0;
+    padding: $spacing-m 0 0;
+    margin-bottom: 2 * $spacing-l;
+}
+
+header > * {
+    padding: 0 (2 * gutter());
+}
+
+header > h1 {
+    margin: $spacing-s auto;
 }
 
 /* @end */
@@ -25,35 +36,17 @@ header {
 /* @group ----- Footer ----- */
 
 footer {
-    //padding: 0 (2 * gutter()) $spacing-l;
+    padding: 0 (2 * gutter()) $spacing-l;
 }
 
 /* @end */
 
-.header-container{
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  @include container;
-  clear: both;
-
-  .logo{
-      display:flex;
-      width:250px;
-  }
-}
-
-
 /* @group ----- Navigation ----- */
 
 header nav {
-    line-height: 40px;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    height: 56px;
+    margin: 0 auto;
+    position: static;
+    padding: 0 (2 * gutter());
 }
 
 header nav:before {
@@ -64,9 +57,6 @@ header nav:before {
 
 header nav ul a {
     padding: 0;
-    color: rgba($primary,0.9) !important;
-    font-size: 1 * $base-font-size;
-    line-height: 56px;
 }
 
 header nav ul li {
@@ -90,14 +80,13 @@ header nav > ul ul:hover > li {
 }
 
 header nav ul.navigation {
+    margin-left: -$spacing-s;
+    position: static;
+    display: flex;
+    align-items: flex-end;
 
     li ul:before {
         display: none;
-    }
-
-    & > li {
-        display: inline-block;
-        height: 56px;
     }
 
     & > li:not(:last-child) {
@@ -106,14 +95,12 @@ header nav ul.navigation {
 
     & > li > ul {
         position: absolute;
-        top: 56px;
+        top: 100%;
         left: -9999px;
         background-color: #fff;
         padding: 0;
         list-style: none;
         width: 100%;
-        border: solid $gray;
-        border-width: 1px 0;
         padding: ($spacing-m - 1px) 0 ($spacing-s - 1px);
         display: flex;
         flex-direction: row;
@@ -122,7 +109,8 @@ header nav ul.navigation {
     }
 
     & > li:hover > ul {
-        padding: 5px 0;
+        @include container;
+        padding: $spacing-m (2 * gutter());
         left: 0;
         right: 0;
         border-bottom: 0;
@@ -137,16 +125,16 @@ header nav ul.navigation {
             top: 0;
             bottom: 0;
             border-bottom: 1px solid $light;
+            border-top: 1px solid $light;
             z-index: -1;
         }
     }
 
     & > li > ul > li {
-        width: auto;
+        width: 25%;
         font-size: .75 * $base-font-size;
         font-weight: bold;
         padding-bottom: $spacing-l;
-        margin-right: 20px;
     }
 
     & > li > ul > li ul {
@@ -157,13 +145,16 @@ header nav ul.navigation {
     }
 }
 
+header nav > ul > li > a {
+    margin: $spacing-s;
+}
+
 /* All top-level nav items with siblings are parent items and get an arrow. */
 header nav > ul > li > a:not(:only-child):after {
     font-family: "Font Awesome 5 Free";
     content: "\f107";
     display: inline-block;
     margin-left: $spacing-s;
-    font-size: 14px;
 }
 
 header nav > ul li:hover ul li {
@@ -179,7 +170,7 @@ header nav > ul > li > ul > li > ul > li a {
 
 .sub-menu ul {
     border-bottom: 1px solid $light;
-    padding-bottom: 5px;
+    padding-bottom: ($spacing-m - 1px);
 }
 
 .sub-menu li {
@@ -194,38 +185,42 @@ header nav > ul > li > ul > li > ul > li a {
     }
 }
 
-.search-toggle{
-  display: flex;
-  flex: 0 0 auto;
-  width:1rem;
+#search {
+    left: 75%;
+    border-left: 1px solid $light;
+    padding: $spacing-s;
 }
 
-
-nav.closed #search,nav.open #search{
-  display: inherit;
-  margin-left: 1rem;
+#search form input[type="text"],
+#search form button[type="submit"] {
+    height: $base-line-height;
+    font-size: .75 * $base-font-size;
+    line-height: $base-line-height;
 }
 
+#search form button[type="submit"] {
+    width: $base-line-height;
+    height: $base-line-height;
+    padding: 0;
 
-
-nav.open #search, nav.open .navigation{
-  padding: 0;
+    &:before {
+        line-height: $base-line-height;
+    }
 }
-
 
 /* @end */
 
 /* @group ----- Resource List ----- */
 
 ul.resource-list .resource img {
-    width: 150px;
+    width: 4 * $spacing-l;
     height: auto;
-    float: left;
-    margin-right: 1rem;
+    float: right;
+    margin-left: $spacing-m;
 }
 
 ul.resource-list .resource img ~ * {
-    width: calc(100% - #{2.5 * $spacing-l});
+    width: calc(100% - #{4.5 * $spacing-l});
 }
 
 /* @end */
@@ -268,170 +263,19 @@ body.item-set .item-set-items h3 {
 body.item-set .metadata ~ nav.pagination:first-of-type {
     margin-bottom: 0;
 }
+
+
 /* @end */
-
-.hero{
-  background-image: linear-gradient(to bottom right,  rgba($primary,0.7),  rgba($primary,0.2));
-  color: white;
-
-  a{
-    color:white;
-  }
-
-  .hero-container{
-    @include container;
-
-    .slogan-container{
-      @include span(7 of 12);
-    }
-
-    .slogan{
-      //background: rgba($primary,1);
-
-      padding: 7rem 3.5rem 3.5rem 3.5rem;
-      font-size: 2 * $base-font-size;
-      line-height: 1.5 * $base-line-height;
-      font-weight: 300;
-      border-right: 1px solid white;
-      text-align: right;
-
-      span{
-        font-family: $sans;
-        font-weight: 400;
-        margin-left: 2rem;
-      }
-
-      a{
-        font-size: 1.2 * $base-font-size;
-        font-family: $sans;
-        font-weight: 700;
-        border: 2px solid white;
-        text-align: right;
-
-        padding: 0.4rem;
-      }
-
-      p{margin-top:0;}
-    }
-  }
-}
 
 /* @group ----- Page and blocks ----- */
 
 .preview-block {
-    .preview{
-      .preview-item-3{
-        @include span(3 of 12);
-      }
-
-      .preview-item-6{
-        @include span(6 of 12);
-      }
-    }
+    clear: both;
 }
 
-.blocks{
-  @include container;
-
-  .text-no-image{
-    background: white;
-    padding:1rem;
-  }
+ul.preview.resource-list li:first-of-type {
+    border-top: 1px solid $light;
+    padding-top: ($spacing-l - 1px);
 }
 
-.span-4{
-  @include span(4 of 12);
-
-  .item{
-      @include container;
-  }
-}
-
-.span-8{
-  @include span(8 of 12);
-}
-
-.span-6{
-  @include span(6 of 12);
-}
-
-.span-12{
-  @include container;
-
-  .item-wrapper{
-    @include span(12 of 12);
-  }
-
-  .item{
-      @include container;
-  }
-
-  .tiles-img{
-    @include span(6 of 12);
-  }
-
-  .text-image{
-      @include span(6 of 12);
-  }
-}
-
-#content{
-  min-height: 80vh;
-}
-
-.show{
-
-  .media-embeds{
-    @include span(4 of 12);
-  }
-
-  .metadata{
-    @include span(8 of 12);
-    background: white;
-    padding-top:1rem;
-    padding-bottom:1rem;
-    margin-bottom:2rem;
-
-    .property h4 {
-      margin-top: 0;
-    }
-  }
-}
-
-.results{
-  .Heritage{
-    width:25% !important;
-    background: transparent !important;
-    padding-top:0 !important;
-    a{
-      display: block;
-    }
-    img{
-      width:100% !important;
-      float: none !important;
-    }
-
-    .description{
-      .heading{
-        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-        height:  100px;
-      }
-      h4{
-        font-size: 16px;
-      }
-
-      height:120px;
-      overflow: visible !important;
-      background: white !important;
-      padding:0.5rem !important;
-      min-height: 0 !important;
-
-
-      h4{
-        margin-bottom: 0;
-      }
-    }
-  }
-}
 /* @end */

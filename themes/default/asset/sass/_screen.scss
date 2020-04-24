@@ -1,4 +1,3 @@
-/* main: style.scss */
 * {
     box-sizing: border-box;
 }
@@ -11,32 +10,25 @@ html {
 
 body {
     background-color: $bg;
-    //background: white;
-    font-family: $sans;
+    font-family: "Open Sans", sans-serif;
     font-size: $base-font-size;
     line-height: $base-line-height;
     margin: 0;
-    color: #333;
     word-wrap: break-word;
 }
 
-p{
-  margin-top: 0;
-}
-
-
 a:link {
     text-decoration: none;
-    color: #000;
+    color: $link;
 }
 
 a:visited {
-    color: #000;
+    color: $link;
 }
 
 a:active,
 a:hover {
-    color: $bold;
+    color: lighten($link, 20%);
 }
 
 h1 {
@@ -45,18 +37,13 @@ h1 {
 }
 
 h2 {
-    font-size: 1.8 * $base-font-size;
-    line-height: 1.2 * $base-line-height;
-    font-weight: 300;
-    text-transform: uppercase;
+    font-size: 1.5 * $base-font-size;
+    line-height: 1.5 * $base-line-height;
 }
 
 h3 {
     font-size: 1.25 * $base-font-size;
-    line-height: 1.2 * $base-line-height;
-    margin: 0.5rem 0;
-    font-weight: 600;
-    margin-top: 0;
+    line-height: 1.5 * $base-line-height;
 }
 
 h4 {
@@ -68,9 +55,6 @@ img {
     height: auto;
 }
 
-ul{
-  margin-top: 2px;
-}
 /* @group ----- Forms ----- */
 
 input,
@@ -78,7 +62,7 @@ textarea,
 button,
 .button,
 select {
-    font-family: $sans, sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: $base-font-size;
     line-height: $base-line-height;
     margin: 0;
@@ -94,7 +78,7 @@ textarea {
     border-radius: 0;
     height: 1.5 * $spacing-l;
     border: 1px solid $light;
-    padding: 5px 8px;
+    padding: ($spacing-s - 1px) gutter();
     margin: 0;
 }
 
@@ -195,6 +179,11 @@ select {
 /* @end */
 
 /* @group ----- Navigation ----- */
+
+header h1 {
+  margin: 0;
+}
+
 header nav {
     position: relative;
     padding: 0;
@@ -212,12 +201,18 @@ header nav:before {
     display: block;
     width: 1.25 * $spacing-l;
     height: 1.25 * $spacing-l;
+    border: 1px solid $light;
     text-align: center;
+    border-radius: 2px;
     position: absolute;
     right: gutter();
-    color:$primary;
+    top: -(1.625 * $spacing-l);
     cursor: pointer;
-    line-height: 56px;
+    line-height: 1.25 * $base-line-height;
+}
+
+header nav.open {
+    margin: $spacing-m 0 -1px;
 }
 
 header nav.open:before {
@@ -242,6 +237,7 @@ header nav ul {
     }
 
     li {
+        border-top: 1px solid $light;
         position: relative;
     }
 
@@ -312,24 +308,15 @@ header nav > ul > li > ul > li > ul > li a {
     padding-left: 2 * $spacing-l;
 }
 
-.sub-menu{
-    @include span(12 of 12);
-}
-
 .sub-menu ul {
     padding-left: 0;
     list-style-type: none;
     margin-top: $spacing-m;
-    margin-bottom:0;
-
-    a{
-      color: $primary;
-    }
 }
 
 .sub-menu li {
     font-size: .75 * $base-font-size;
-    font-weight: 500;
+    font-weight: bold;
     border-bottom: 1px solid $light;
     padding: $spacing-s 0 ($spacing-s - 1px);
 
@@ -340,7 +327,7 @@ header nav > ul > li > ul > li > ul > li a {
 }
 
 nav.pagination {
-    margin-bottom: 1rem;
+    margin-bottom: $spacing-l;
     font-size: $base-font-size;
     line-height: 1.5 * $base-line-height;
 }
@@ -373,25 +360,14 @@ nav.pagination {
     text-align: center;
     padding: $spacing-s;
     border-radius: 2px;
-    color: $gray;
+    color: #000;
     line-height: $base-line-height;
-
-    &:before{
-      line-height: 22px;
-    }
-
-    &:hover {
-        background-color: $bold;
-    }
 }
 
 .pagination .inactive.button {
     opacity: .5;
+    color: $gray;
     background-color: white;
-
-    &:hover {
-        background-color: white;
-    }
 }
 
 .pagination form,
@@ -404,13 +380,8 @@ nav.pagination {
 }
 
 .breadcrumbs {
-    @include span(12 of 12);
     font-size: .75 * $base-font-size;
     margin: $spacing-l 0 (-$spacing-m);
-
-    a{
-        color: $primary;
-    }
 }
 
 /* @end */
@@ -423,53 +394,17 @@ nav.pagination {
     padding-right: $base-line-height;
 }
 
-.site-title {
-    line-height: 0;
-    display: block;
-}
-
 header {
+    margin: 0 0 (2.5 * $spacing-l);
     background-color: #fff;
+    border-bottom: 1px solid $light;
     position: relative;
 
     & > * {
         @include container;
-        //padding: 0 gutter();
+        padding: 0 gutter();
         display: block;
     }
-}
-
-.logo{
-  float:left;
-}
-
-.logo img{
-  height: auto;
-  width: 250px;
-}
-
-nav.open {
-  .navigation{
-    padding:0.5rem 1rem;
-  }
-
-  #search{
-    padding:0.5rem 1rem;
-  }
-}
-
-nav.closed #search{
-  display: none;
-}
-
-.header-wrapper{
-  @include container;
-}
-
-.header-container{
-  @include span(12 of 12);
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
 }
 
 .site-title:hover,
@@ -486,20 +421,23 @@ button.o-icon-search {
 }
 
 #search {
-
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-bottom: 1px solid $light;
+    border-top: 1px solid $light;
+    padding: $spacing-s gutter();
 }
 
 #search form {
     display: flex;
-    width: 300px;
     flex-wrap: nowrap;
-    margin-bottom:0;
+}
 
-    input[type="text"] {
-       width: 100%;
-       border:none;
-       background: rgba($primary,0.05);
-    }
+#search form input[type="text"] {
+    width: 100%;
 }
 
 #search form button[type="submit"] {
@@ -508,8 +446,6 @@ button.o-icon-search {
     text-indent: -9999px;
     position: relative;
     border-radius: 0 3px 3px 0;
-    background: rgba($primary,0.05);
-    color: $primary;
 
     &:before {
         content: "\f002";
@@ -529,77 +465,8 @@ button.o-icon-search {
 /* @group ----- Footer ----- */
 
 footer {
-    //@include container;
-    padding: 3rem gutter() 3rem;
-    background: white;
-    color: #777;
-
-    a{
-      color: #666 !important;
-      margin-right: 10px;
-    }
-
-    .footer-container{
-      @include container;
-    }
-
-    .footer-text{
-      @include span(12 of 12);
-    }
-}
-
-/* @end */
-
-/* @group ----- Hero ----- */
-.hero-section{
-  background: url(../img/Civitas_2018-40.jpg);
-  background-size: cover;
-  background-position: 50% 50%;
-  margin-bottom: 3rem;
-
-}
-
-.hero{
-  background-image: linear-gradient(to bottom right,  rgba($primary,0.7),  rgba($primary,0.2));
-  color: white;
-
-  a{
-    color:white;
-  }
-
-  .hero-container{
     @include container;
-
-
-    .slogan{
-      //background: rgba($primary,1);
-
-      padding: 4rem 2.5rem 2.5rem 2.5rem;
-      font-size: 1.6 * $base-font-size;
-      line-height: 1.5 * $base-line-height;
-      font-weight: 300;
-      border-right: 1px solid white;
-      text-align: right;
-
-      span{
-        font-family: $sans;
-        font-weight: 400;
-        margin-left: 2rem;
-      }
-
-      a{
-        font-size: 1.2 * $base-font-size;
-        font-family: $sans;
-        font-weight: 700;
-        border: 2px solid white;
-        text-align: right;
-
-        padding: 0.4rem;
-      }
-
-      p{margin-top:0;}
-    }
-  }
+    padding: 0 gutter() $spacing-l;
 }
 
 /* @end */
@@ -607,534 +474,24 @@ footer {
 /* @group ----- Page and Blocks ----- */
 
 #content {
-    margin: 0 1rem;
     @include container;
-}
-
-.item-showcase {
-    margin: $spacing-l 0;
-    border-top: 1px solid $light;
-    border-bottom: 1px solid $light;
-    padding: ($spacing-l - 1px) 0 0;
-    overflow: hidden;
-    text-align: center;
-    clear: both;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.item.resource .caption {
-    font-size: .75 * $base-font-size;
-    line-height: $base-line-height;
-
-    * {
-        margin: 0 0 $spacing-l 0;
-    }
-
-    & > *:last-child {
-        margin-bottom: 0;
-    }
-}
-
-.item-showcase .resource.item {
-    vertical-align: top;
-    margin-bottom: $spacing-l;
-
-    img {
-        margin-right: $spacing-m;
-    }
-
-    &:only-child img {
-        margin: 0 auto;
-    }
-
-    &:not(:only-child) {
-        width: 25%;
-        clear: none;
-        padding: 0 gutter();
-    }
-
-    &:not(:only-child) h3 {
-        clear: left;
-        font-size: .75 * $base-font-size;
-        line-height: $base-line-height;
-        margin: $spacing-m 0 0;
-    }
-
-    &:not(:only-child) img {
-        max-height: 7 * $spacing-l;
-        width: auto;
-        float: none;
-        margin-right: 0;
-        vertical-align: top;
-    }
-}
-
-.right,
-.left {
-    overflow: hidden;
-}
-
-.left .item.resource,
-.right .item.resource {
-    margin: 0 0 $spacing-l 0;
-    width: -webkit-min-content;
-    width: -moz-min-content;
-    width: min-content;
-    max-width: 40vw;
-
-    &:first-of-type {
-        border-top: 1px solid $light;
-        padding-top: ($spacing-l - 1px);
-        margin-top: 0;
-    }
-
-    &:last-of-type {
-        border-bottom: 1px solid $light;
-        padding-bottom: ($spacing-l - 1px);
-    }
-
-    .media-render > *, img {
-        max-width: 40vw;
-    }
-}
-
-.left:not(.file) .item.resource,
-.right:not(.file) .item.resource {
-    max-width: 50%;
-}
-
-/* IE/Edge min-content alternative */
-.file {
-    display: -ms-grid;
-    -ms-grid-columns: min-content;
-}
-
-.left.file,
-.right.file {
-    max-width: 50%;
-}
-
-.left.file {
-    float: left;
-    clear: left;
-}
-
-.right.file {
-    float: right;
-    clear: right;
-}
-
-.left .item.resource {
-    float: left;
-    margin-right: $spacing-l;
-    clear: left;
-}
-
-.right .item.resource {
-    float: right;
-    margin-left: $spacing-l;
-    clear: right;
-}
-
-.left .item.resource > a:first-child,
-.right .item.resource > a:first-child {
-    vertical-align: top;
-}
-
-.medium .item.resource > h3,
-.square .item.resource > h3 {
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-}
-
-.left .item.resource > h3,
-.right .item.resource > h3 {
-    margin: 0;
-}
-
-.left .item.resource + p,
-.right .item.resource + p {
-    margin-top: 0;
-}
-
-.break {
-    width: 100%;
-    clear: both;
-    border-bottom: 1px solid $light;
-    padding-bottom: -1px;
-    margin: $spacing-l 0;
-
-    &.transparent {
-        border-color: transparent;
-    }
-
-    &.opaque {
-        border-color: $light;
-    }
-}
-
-.preview-block {
-    margin:0 0 3rem 0;
-    @include susy-clearfix;
-
-    &:first-of-type{
-      hr {display: none;}
-    }
-}
-
-.preview-block:last-of-type{
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(146,11,67,0.08);
-    margin-bottom: 1.5rem;
-}
-
-.preview-block{
-  .event-img{
-    min-height: 270px;
-    background-size: cover;
-    box-shadow: 3px 3px 0px 0px rgba(146,11,67,0.1);
-
-    .event-text{
-        padding:1rem;
-        background: rgba(#333,0.5);
-        min-height: 270px;
-        position: relative;
-    }
-
-    h4{
-      margin:0;
-      font-size: 1.5 * $base-font-size;
-      font-weight: 600;
-      max-height:250px;
-      margin-bottom: 1rem;
-
-      a{
-        color: white !important;
-        font-family: $serif;
-      }
-    }
-
-    .more-link{
-      position: absolute;
-      bottom:1rem;
-      a {
-        color:white;
-        padding:0.2rem;
-
-        &::before {
-            font-family: "Font Awesome 5 Free";
-            content: "\f0da";
-            display: inline-block;
-            margin-right: 6.5px;
-            font-size: 14px;
-            color: $primary;
-        }
-      }
-    }
-  }
-}
-
-
-.blocks{
-  @include container;
-
-  .tiles-block{
-    margin-bottom: 2rem;
-
-    a{
-      color: $primary;
-    }
-  }
-
-  h2{
-    @include span(12 of 12);
-  }
-
-  .tile-person{
-    display:flex;
-    align-items: center;
-
-    .image{
-      line-height: normal;
-      margin-right: 8px;
-    }
-    .image img{
-      height:50px;
-      width: auto;
-
-    }
-
-    .name{
-
-    }
-  }
-}
-
-.preview-block {
-    .top{
-      @include span(12 of 12);
-    }
-
-    h3{
-      font-weight: 300;
-      text-transform: uppercase;
-      font-size: 2 * $base-font-size;
-      margin-bottom: 1rem;
-      line-height: 2rem;
-      color: #333;
-      padding-bottom: 1rem;
-      border-bottom:1px solid rgba($primary,0.08);
-
-      .more-preview{
-        font-size: 1*$base-font-size;
-        font-family: $sans;
-        vertical-align: top;
-        margin-left: 5px;
-        font-weight: 700;
-
-        text-transform: none;
-
-        a{
-          color: $primary;
-          padding:0.3rem  0.5rem;
-          border-left:1px solid $primary;
-        }
-      }
-    }
-
-    .preview{
-      @include container;
-      overflow: visible;
-
-      .item{
-        position: relative;
-        img{box-shadow: 3px 3px 0px 0px rgba($primary,0.3);opacity: 0.7;}
-        margin-bottom:1rem;
-      }
-
-      .preview-item-3{
-        @include span(6 of 12);
-      }
-
-      .preview-item-6{
-        @include span(12 of 12);
-      }
-    }
-}
-
-.tiles-block{
-  .item{
-    img{
-      width: 100%;
-    }
-  }
-
-  h3{
-    font-family: $serif;
-    text-transform: none;
-  }
-
-  .tiles-img{
-    a{
-      line-height: 0;
-      display: block;
-    }
-
-    background-size:cover !important;
-    overflow: hidden;
-    max-height: 300px;
-    height: 200px;
-  }
-
-  .tile-more{
-    padding: 0.7rem 0 0 0;
-    text-align: right;
-
-    a {
-      color: $primary;
-      border-bottom: 2px solid $primary;
-      padding: 0.1rem 0.1rem;
-      font-size: 0.9*$base-font-size;
-    }
-  }
-
-  .top-title{
-    font-weight: 300;
-    font-family: $sans;
-    font-size: 1.5 * $base-font-size;
-    margin-top: 0;
-    margin-bottom: 0.7rem;
-    border-bottom: 1px solid rgba(146,11,67,0.08);
-    padding-bottom: 0.1rem;
-    line-height: 30px;
-  }
-
-}
-
-.span-4{
-  @include span(12 of 12);
-
-  .box-title{
-    display: none;
-  }
-
-  .item{
-      @include container;
-      //overflow: hidden;
-      margin-bottom:2rem;
-      box-shadow: 3px 3px 0px 0px rgba($primary,0.06);
-      //border:2px solid rgba($primary,0.2);
-  }
-
-  .text-image{
-      p{
-        height:100px;
-      }
-  }
-}
-
-.span-6{
-  .tiles-img{
-    height:300px;
-  }
-}
-
-.span-12{
-  @include container;
-
-  .item-wrapper{
-    @include span(12 of 12);
-  }
-
-  .item{
-      @include container;
-      background: white;
-  }
-
-  .tiles-img{
-    @include span(12 of 12);
-    padding-left: 0;
-  }
-
-  .text-image{
-      @include span(12 of 12);
-      font-size: 1 * $base-font-size;
-      padding: 1.8rem;
-      background:white;
-      position: relative;
-
-  }
+    padding: 0 gutter() $spacing-l;
 }
 
 .resource-list.preview + a {
-    text-align: center;
-    padding: 0.3rem 0;
-    text-transform: uppercase;
-    border-radius: 2px;
-    line-height: $base-line-height;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 0.9rem;
+    @extend .button;
+}
 
+.resource-list.preview + a {
+    color: #000;
+  
     &:hover {
-        border-bottom-width: 0px;
-        color: $primary;
+      background-color: $bold;
+      border-bottom-width: 0px;
+      color: #fff;
     }
 }
 
-.toc-block > ul {
-    margin: $spacing-l 0;
-    list-style-type: none;
-    border-left: 5px solid $gray;
-}
-
-.toc-block > ul > li {
-    margin-bottom: $spacing-m;
-}
-
-.toc-block > ul > li > a {
-    font-weight: bold;
-}
-
-.toc-block ul ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.toc-block ul ul ul {
-    padding-left: 1.25em;
-}
-
-.toc-block ul ul li:before {
-    content: "\2014";
-    color: $light;
-}
-
-.item-with-metadata .show.resource {
-    margin: (2 * $spacing-l) 0;
-}
-
-.site-page-pagination {
-    margin-top: 2 * $spacing-l;
-    clear: both;
-}
-
-.site-page-pagination a {
-    background-color: $light;
-    border-radius: 2px;
-    padding: $spacing-s;
-    display: inline-block;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 0;
-    cursor: pointer;
-}
-
-.list-of-sites .site-list {
-    .site {
-        margin-bottom: $spacing-m;
-    }
-
-    .site-link {
-        display: inline-block;
-        font-size: 1.25 * $base-font-size;
-        margin-bottom: $spacing-s;
-    }
-
-    .site-summary {
-        margin: 0 0 0 $spacing-m;
-        line-height: 20px;
-    }
-}
-
-/* @end */
-
-/* @group ----- Tiles block ----- */
-.blocks{
-  overflow: hidden;
-}
-
-.tiles-block{
-  .item{
-    position: relative;
-  }
-
-  .text-image{
-    h3{
-      margin-top: 0;
-      font-size: 1.7 * $base-font-size;
-    }
-
-    background: white;
-    padding: 1rem;
-
-    p{
-      margin-top: 0;
-    }
-  }
-}
 /* @end */
 
 /* @group ----- Resource List ----- */
@@ -1145,37 +502,47 @@ ul.resource-list {
 }
 
 ul.resource-list .resource {
-  @include span(12 of 12);
-    margin-bottom: 1rem;
+    border-bottom: 1px solid $light;
+    padding-bottom: ($spacing-l - 1px);
+    margin: $spacing-l 0;
     overflow: hidden;
     position: relative;
 
-
     & > *:last-child {
         margin-bottom: 0;
+    }
+
+    &:first-child {
+        border-top: 1px solid $light;
+        padding-top: ($spacing-l - 1px);
     }
 }
 
 ul.resource-list .resource img {
     height: auto;
     width: 2 * $spacing-l;
-    float: left;
-    margin-right: $spacing-m;
+    float: right;
+    margin-left: $spacing-m;
 }
 
 ul.resource-list .resource h4 {
     margin-top: 0;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
 }
 
 ul.resource-list .resource .description {
+    max-height: 3 * $spacing-l;
+    overflow: hidden;
     position: relative;
-    overflow: auto;
-    min-height: 150px;
-    max-width: 800px;
-    background:white;
-    padding:1rem;
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 1.75 * $spacing-l;
+        left: 0;
+        right: 0;
+        height: 1.25 * $spacing-l;
+        background: linear-gradient(to top, rgba(248,248,248,1), rgba(248,248,248,0));
+    }
 }
 
 ul.resource-list .resource img ~ * {
@@ -1226,13 +593,12 @@ body.resource #content > h2:first-of-type + h3 {
 }
 
 .property {
-    margin-bottom: 1rem;
+    margin-bottom: $spacing-l;
 }
 
 .property h4 {
     margin-bottom: 0;
-    font-size: .95 * $base-font-size;
-    font-weight: 700;
+    font-size: .75 * $base-font-size;
 }
 
 .resource-link img {
@@ -1245,7 +611,7 @@ body.resource #content > h2:first-of-type + h3 {
 
 .property .value a {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 .property .value:not(:last-child) img {
@@ -1260,6 +626,12 @@ body.resource #content > h2:first-of-type + h3 {
     background-color: lighten($gray, 15%);
     padding: .5 * $spacing-s;
     font-size: .5 * $base-font-size;
+}
+
+.property .private:after {
+    content: "\f070";
+    font-family: "Font Awesome 5 Free";
+    font-size: .75 * $base-font-size;
 }
 
 #content .media.resource {
@@ -1333,70 +705,3 @@ a.metadata-browse-link {
 }
 
 /* @end */
-
-.top{
-  @include span(12 of 12);
-}
-
-.results{
-  @include container;
-  clear: both;
-
-  .browse-controls{
-    padding-left: 1.38889%;
-    padding-right: 1.38889%;
-  }
-
-  .resource-list{
-    display: block;
-    overflow: auto;
-
-    .date{
-      font-weight: 200;
-      margin-bottom: 0.5rem;
-      color: #666;
-    }
-  }
-}
-
-.logos-page{
-
-  justify-content: space-around;
-  text-align: center;
-
-  a{
-    display: inline-block;
-  }
-
-  img{
-    height: 60px;
-    margin: 1rem 1rem;
-    max-height: 60px;
-
-    &::last-of-type{
-
-    }
-  }
-}
-
-.browse-meta{
-  clear:both;
-  margin-bottom: 0.5rem;
-
-  .value{
-    overflow: hidden;
-  }
-}
-.browse-meta h4{
-  margin-bottom: 0 !important;
-  float: left;
-  width: 150px;
-}
-
-.search-results-container{
-  @include span(12 of 12);
-}
-.search-results{
-  padding:1rem;
-  background: white;
-}

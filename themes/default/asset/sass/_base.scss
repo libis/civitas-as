@@ -1,30 +1,23 @@
-/* main: style.scss */
 // Susy
 
 $susy: (
     columns:                            12,
-    gutters:                            2/4,
-    gutter-position: inside,
-    container:                          1200px,
+    container:                          1700px,
     global-box-sizing:                  border-box
 );
 
-// Fonts
-$sans:                                  'Source Sans Pro', sans-serif;
-$serif:                                 'Source Serif Pro', serif;
-
 // Colors
 
-$primary:                               #920B43;//#960643;
 $gray:                                  #ababab;
 $bold:                                  darken($gray, 20%);
 $light:                                 lighten($gray, 20%);
-$bg:                                    #f5f5f5;
+$bg:                                    lighten($gray, 30%);
+$link:                                  #920b0b;
 
 // Typography
 
-$base-font-size:                        16px;
-$base-line-height:                      26px;
+$base-font-size:                        20px;
+$base-line-height:                      30px;
 
 // Units
 
@@ -35,8 +28,7 @@ $spacing-l:                             $base-line-height;
 // Mixins
 
 @mixin container {
-    max-width: 1200px;
+    max-width: 1700px;
     margin-left: auto;
     margin-right: auto;
-    @include susy-clearfix;
 }

@@ -7,7 +7,8 @@ $last =  $block->dataValue('last','');
 $title =  $block->dataValue('title','');
 $showTitleOption = $block->dataValue('show_title_option', 'item_title');
 ?>
-<div class="tiles-block span-<?php echo $span;?>"><div class="item-wrapper">
+<div class="tiles-block span-<?php echo $span;?>">
+  <div class="item-wrapper">
 
 <?php if (!$attachments):?>
     <?php if($title):

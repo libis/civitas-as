@@ -1,0 +1,109 @@
+<?php ini_set('memory_limit', '1512M');?>
+<div class="section section--lrg section--light">
+        <div class="container">
+
+          <!-- breadcrumbs -->
+          <?php //var_dump($block->page()->site()->getAdapter());?>
+          <div class="breadcrumb spacer">
+              <span itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb" class="breadcrumb__scope">
+                  <a href="<?php echo "/";?>" itemprop="url" class="breadcrumb__item"><span itemprop="title">Home</span></a>
+              </span>
+              <?php
+                $flat = filter_bc(flattenArray($block->page()->site()->navigation()));
+                //var_dump($flat);
+                $key = array_search($block->page()->id(), $flat);
+
+                $crumbs = "";
+
+                while(strlen($key) >= 4){
+                  $key = explode('|',$key);
+
+                  array_pop($key);
+                  array_pop($key);
+                  $key = implode('|',$key)."|";
+
+
+                  if(isset($flat[$key])):
+                    $id = $flat[$key];
+                    $page = $this->api()->read('site_pages', $id)->getContent();
+                    $link = '<a href="'.$page->url().'">'.$page->title().'</a>';
+                    $crumbs = $link.'</span>
+                      <span itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb" class="breadcrumb__scope">'.$crumbs;
+                  endif;
+                }
+                //return $crumbs;
+                //$crumbs = get_crumb($flat,$pageid,$this);
+              ?>
+              <span itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb" class="breadcrumb__scope">
+                <?php echo $crumbs;?>
+
+                <span itemprop="title"><?php echo $block->page()->title();?></span>
+              </span>
+          </div>
+
+        <h1 class="spacer"><?php echo $block->dataValue('title');?></h1>
+        <div class="grid">
+            <div class="grid__12 grid__8@med">
+                <span>
+                  <?php echo $block->dataValue('text');?>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+function flattenArray($arr) {
+    $output = [];
+
+    foreach ($arr as $key => $value) {
+        if (is_array($value)) {
+            foreach(flattenArray($value) as $flattenKey => $flattenValue) {
+
+                $output["${key}.${flattenKey}"] = $flattenValue;
+            }
+        } else {
+            $output[$key] = $value;
+        }
+    }
+    return $output;
+}
+function filter_bc($arr){
+  $output = [];
+  foreach($arr as $key=>$value):
+    $level = substr_count($key,'links');
+    $temp = explode(".", $key);
+    $nr = $temp[0];
+    $order = '';
+    foreach($temp as $t){
+      if(is_numeric($t)):
+        $order .= $t."|";
+      endif;
+    }
+    if (strpos($key, 'id') !== false) {
+      $output[$order] = $value;
+    }
+  endforeach;
+  return $output;
+}
+function get_crumb($flat, $id, $view){
+  $key = array_search($id, $flat);
+  $crumbs = "";
+  if(strlen($key) == 2):
+    return $crumbs;
+  endif;
+
+  while(strlen($key) >= 4){
+    $key = substr($key, 0, -2);
+    $id = $flat[$key];
+    $crumbs = get_title($id,$view).'</span>
+      <span itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb" class="breadcrumb__scope">'.$crumbs;
+
+  }
+  return $crumbs;
+}
+function get_title($id,$view){
+  $page = $view->api()->read('site_pages', $id)->getContent();
+  return '<a href="'.$page->url().'">'.$page->title().'</a>';
+}
+?>

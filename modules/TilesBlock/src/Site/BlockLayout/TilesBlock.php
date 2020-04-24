@@ -180,4 +180,9 @@ class TilesBlock extends AbstractBlockLayout
         'resources' => $resources
       ]);
     }
+
+    public function getFulltextText(PhpRenderer $view, SitePageBlockRepresentation $block)
+    {
+        return strip_tags($this->render($view, $block));
+    }
 }
