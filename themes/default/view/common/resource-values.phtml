@@ -30,6 +30,7 @@ $labelInfo = $this->setting('property_label_information');
         <div class="values">
         <?php foreach ($propertyData['values'] as $value): ?>
             <?php
+            $string = $value->asHtml();
             $valueType = $value->type();
             $class = ['value'];
             if ('resource' == $valueType || strpos($valueType, 'resource') !== false) {
@@ -41,12 +42,19 @@ $labelInfo = $this->setting('property_label_information');
             if (!$value->isPublic()) {
                 $class[] = 'private';
             }
+            if($term == "dcterms:relation"){
+
+              $url = '@(http(s)?)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
+              $string = preg_replace($url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $string);
+              
+            }
             ?>
-            <div class="<?php echo implode(' ', $class); ?>" lang="<?php echo $escape($value->lang()); ?>">
+            <div class="<?php echo implode(' ', $class); ?>">
                 <?php if ($language = $value->lang()): ?>
                 <span class="language"><?php echo $language; ?></span>
                 <?php endif; ?>
-                <?php echo $value->asHtml(); ?>
+
+                <?php echo $string; ?>
             </div>
         <?php endforeach; ?>
         </div>

@@ -39,10 +39,11 @@ $sortHeadings = [
         '6' => 'Heritage',
         '4' => 'Biographies',
         '12' => 'Documents',
+        '15' => 'New publications',
         '2' => 'Events',
         '9' => 'Publications',
         '11' => 'Images',
-        '10' => 'Researchers',
+        '10' => 'Individual members',
         'movie' => 'Movies',
         'picture' => 'Pictures',
         'poster' => 'Posters'
@@ -60,7 +61,7 @@ $sortHeadings = [
             $template = 0;
         endif;
         if($template == 6 && isset($query['property'][0]['text'])):
-            $template = $query['property'][0]['text'];
+            $template = htmlspecialchars($query['property'][0]['text']);
         endif;
     endif;
 ?>

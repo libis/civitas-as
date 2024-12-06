@@ -182,6 +182,7 @@ select {
     content: "\f069";
     font-family: "Font Awesome 5 Free";
     font-size: .75 * $base-font-size;
+    font-weight: 600;
 }
 
 .field .value:not(:last-child) {
@@ -218,6 +219,7 @@ header nav:before {
     color:$primary;
     cursor: pointer;
     line-height: 56px;
+    font-weight: 600;
 }
 
 header nav.open:before {
@@ -264,6 +266,7 @@ header nav ul {
         height: 1.5 * $spacing-l;
         line-height: 1.5 * $base-line-height;
         text-align: center;
+        font-weight: 600;
     }
 
     li > ul:hover:before {
@@ -521,6 +524,7 @@ button.o-icon-search {
         text-align: center;
         text-indent: 0;
         line-height: 1.5 * $base-line-height;
+        font-weight: 600;
     }
 }
 
@@ -829,6 +833,7 @@ footer {
             margin-right: 6.5px;
             font-size: 14px;
             color: $primary;
+            font-weight: 600;
         }
       }
     }

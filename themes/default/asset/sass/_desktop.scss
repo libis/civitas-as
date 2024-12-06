@@ -164,6 +164,7 @@ header nav > ul > li > a:not(:only-child):after {
     display: inline-block;
     margin-left: $spacing-s;
     font-size: 14px;
+    font-weight: 600;
 }
 
 header nav > ul li:hover ul li {
@@ -175,6 +176,17 @@ header nav > ul li:hover ul li {
 header nav > ul > li > ul > li a,
 header nav > ul > li > ul > li > ul > li a {
     padding-left: 0;
+}
+
+/* Second level items */
+header nav > ul > li > ul > li.active > a {
+  margin-left: 0;
+}
+
+header nav > ul > li > ul > li.active > a:before {
+  content: "";
+  display: inline;
+  width: "";
 }
 
 .sub-menu ul {
@@ -322,6 +334,10 @@ body.item-set .metadata ~ nav.pagination:first-of-type {
     .preview{
       .preview-item-3{
         @include span(3 of 12);
+      }
+
+      .preview-item-4{
+        @include span(4 of 12);
       }
 
       .preview-item-6{
